@@ -15,3 +15,4 @@ infra/stg/terraform.tfstate
 Git管理対象（providerバージョン固定のため
 
 test start
+Retrying Terraform Plan test

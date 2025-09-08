@@ -8,6 +8,9 @@ on:
 jobs:
   terraform-plan:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
     defaults:
       run:
         working-directory: infra/stg

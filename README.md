@@ -1,26 +1,27 @@
 ■　各ステージの詳細手順
 ① feature → main（開発 → レビュー）
-1. feature/xxx で変更を加える
-2. git push origin feature/xxx
-3. GitHubで main に向けた PR を作成
-4. PR作成時に Terraform Plan (staging) が発火
-- terraform plan 結果が PR コメントに投稿される
-- 差分をレビューしやすくなる
+1. git checkout -b feature/xxx 新規ブランチ作成 (xxxは便宜変更)
+2. git pull origin main リモートブランチから最新の構成情報を取得
+3. feature/xxx で変更を加える
+4. git push origin feature/xxx　リモートブランチに変更をpush
+5. GitHubでorigin/feature/xxxにマージ
+6. GitHubで main に向けた PR を作成
+7. PR承認
 
 ② main → staging（レビュー済み → 検証環境）
-1. PRを main にマージ
-2. git push origin main:staging で staging に昇格
+1. Githudでmain → staging PR を作成
+2. PR承認
 3. Terraform Apply (staging) が発火
-- infra/stg に対して terraform apply が実行される
-- S3に stg/terraform.tfstate が保存され、DynamoDBロックも有効
+4. infra/stg に対して terraform apply が実行される
+5. S3に stg/terraform.tfstate が保存され、DynamoDBロックも有効
 
 ③ staging → production（検証済み → 本番昇格）
-1. staging の内容を main にマージ（再確認）
-2. git push origin main:production で本番昇格
+1. Githudでstaging → production PR を作成
+2. PR承認
 3. Terraform Apply (production) が発火
-- infra/prod に対して terraform apply が実行される
-- S3に prod/terraform.tfstate が保存され、DynamoDBロックも有効
-- environment: production によって GitHub の承認制も利用可能
+4. infra/prod に対して terraform apply が実行される
+5. S3に prod/terraform.tfstate が保存され、DynamoDBロックも有効
+　 environment: production によって GitHub の承認制も利用可能
 
 
 ■　Git管理対象外ファイルについて　(.gitignore)

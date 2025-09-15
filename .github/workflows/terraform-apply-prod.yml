@@ -34,4 +34,4 @@ jobs:
         run: terraform plan -var-file=terraform.tfvars -out=tfplan.binary
 
       - name: Terraform Apply
-        run: terraform apply -var-file=environment.tfvars -auto-approve tfplan.binary
+        run: terraform apply -var-file=terraform.tfvars -auto-approve tfplan.binary
